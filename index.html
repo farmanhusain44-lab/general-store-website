@@ -218,65 +218,6 @@
     <footer>
       <p>© 2026 Daily Needs Store. All rights reserved.</p>
     </footer>
-<script src="https://ai-chatbot-production-2f3a.up.railway.app/widget.js" data-agent="AI Assistant" data-welcome="Hello! How can I help you?" data-access="BOT-F71A504C06E62A5F"></script>
-<script>
-  // Move chat widget to left-bottom corner when it appears
-  (function () {
-    function applyPosition(el) {
-      try {
-        el.style.position = 'fixed';
-        el.style.left = '16px';
-        el.style.right = 'auto';
-        el.style.top = '20px';
-        el.style.bottom = 'auto';
-        el.style.zIndex = '2147483647';
-      } catch (e) {}
-    }
-
-    // Try common selectors used by chat widgets
-    function findAndMove() {
-      var selectors = [
-        'iframe[src*="ai-chatbot-production"]',
-        'div[data-access="BOT-F71A504C06E62A5F"]',
-        '.ai-chatbot-widget',
-        '.botify-widget',
-        '#botify-widget',
-        '.widget-container',
-        'iframe'
-      ];
-      for (var i = 0; i < selectors.length; i++) {
-        var el = document.querySelector(selectors[i]);
-        if (el) {
-          // If it's an iframe, move its parent if needed
-          if (el.tagName && el.tagName.toLowerCase() === 'iframe' && el.parentElement) {
-            applyPosition(el.parentElement);
-          } else {
-            applyPosition(el);
-          }
-          return true;
-        }
-      }
-      return false;
-    }
-
-    // Observe DOM changes to catch widget insertion
-    var observer = new MutationObserver(function (mutations) {
-      if (findAndMove()) {
-        observer.disconnect();
-      }
-    });
-    observer.observe(document.documentElement || document.body, { childList: true, subtree: true });
-
-    // Fallback: try a few times on an interval
-    var attempts = 0;
-    var interval = setInterval(function () {
-      attempts++;
-      if (findAndMove() || attempts > 20) {
-        clearInterval(interval);
-        observer.disconnect();
-      }
-    }, 500);
-  })();
-</script>
+<!-- Bot widget removed -->
   </body>
 </html>
