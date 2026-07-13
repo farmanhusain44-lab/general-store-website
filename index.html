@@ -219,5 +219,40 @@
       <p>© 2026 Daily Needs Store. All rights reserved.</p>
     </footer>
 <script src="https://ai-chatbot-production-2f3a.up.railway.app/widget.js" data-agent="AI Assistant" data-welcome="Hello! How can I help you?" data-access="BOT-F71A504C06E62A5F"></script>
+<script>
+  // Replace visible Pakistani phone numbers with India country code in-page
+  (function(){
+    function replaceText(node) {
+      if (!node || node.nodeType !== Node.TEXT_NODE) return;
+      var text = node.nodeValue;
+      // common patterns: +92, +92 300, 0300
+      var replaced = text.replace(/\+92\s?/g, '+91 ')
+                         .replace(/\b0?3(\d{2})\s?(\d{7})/g, '9$1 $2');
+      if (replaced !== text) node.nodeValue = replaced;
+    }
+
+    function walkAndReplace(root) {
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+      var n;
+      while(n = walker.nextNode()) replaceText(n);
+    }
+
+    // Initial pass
+    walkAndReplace(document.body);
+
+    // Observe future changes (widget may insert content dynamically)
+    var mo = new MutationObserver(function(muts){
+      for (var m of muts) {
+        if (m.addedNodes) {
+          m.addedNodes.forEach(function(n){
+            if (n.nodeType === Node.TEXT_NODE) replaceText(n);
+            else walkAndReplace(n);
+          });
+        }
+      }
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+  })();
+</script>
   </body>
 </html>
